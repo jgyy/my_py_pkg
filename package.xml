@@ -5,7 +5,7 @@
   <version>0.0.0</version>
   <description>ROS2 Topic Activity package</description>
   <maintainer email="jeffrey.goh@sit.singaporetech.edu.sg">jegoh</maintainer>
-  <license>TODO: License declaration</license>
+  <license>Apache License 2.0</license>
 
   <depend>rclpy</depend>
   <depend>example_interfaces</depend>
