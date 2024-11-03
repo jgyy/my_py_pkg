@@ -15,14 +15,16 @@ setup(
     zip_safe=True,
     maintainer='jegoh',
     maintainer_email='jeffrey.goh@sit.singaporetech.edu.sg',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    description='ROS2 Topic Activity package',
+    license='Apache License 2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
             "my_first_node = my_py_pkg.my_first_node:main",
             "robot_news_station = my_py_pkg.robot_news_station:main",
-            "smartphone = my_py_pkg.smartphone:main"
+            "smartphone = my_py_pkg.smartphone:main",
+            "number_publisher = my_py_pkg.number_publisher:main",
+            "number_counter = my_py_pkg.number_counter:main"
         ],
     },
 )
