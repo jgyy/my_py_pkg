@@ -8,6 +8,7 @@
   <license>Apache License 2.0</license>
 
   <depend>rclpy</depend>
+  <depend>std_msgs</depend>
   <depend>example_interfaces</depend>
 
   <test_depend>ament_copyright</test_depend>
