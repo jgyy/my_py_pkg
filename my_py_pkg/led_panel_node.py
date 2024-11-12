@@ -8,7 +8,7 @@ from my_robot_interfaces.msg import LedStates
 
 class LedPanelNode(Node):
     def __init__(self):
-        super().__init__("led_panel")
+        super().__init__("led_panel_node")
 
         self.led_states = [False, False, False]
         self.service = self.create_service(SetLed, "set_led", self.set_led_callback)
