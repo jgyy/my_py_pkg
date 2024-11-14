@@ -45,7 +45,7 @@ class TurtleController(Node):
         angle = math.atan2(dy, dx)
         vel_msg = Twist()
         angle_diff = angle - self.current_pose.theta
-        if angle_diff > math.pi
+        if angle_diff > math.pi:
             angle_diff -= 2 * math.pi
         elif angle_diff < -math.pi:
             angle_diff += 2 * math.pi

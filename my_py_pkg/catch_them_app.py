@@ -50,8 +50,7 @@ class CatchThemAll(Node):
             self.find_next_target()
 
     def find_next_target(self):
-        available_turtles = set(self.turtle_poses.keys())
-            - {"turtle1"} - self.caught_turtles
+        available_turtles = set(self.turtle_poses.keys()) - {"turtle1"} - self.caught_turtles
         if not available_turtles:
             self.get_logger().info("All turtles caught!")
             self.current_target = None
@@ -69,7 +68,7 @@ class CatchThemAll(Node):
                 closest_turtle = turtle
         self.set_new_target(closest_turtle)
 
-    def set_new_target_(closest_turtle)
+    def set_new_target(self, closest_turtle):
         self.current_target = turtle_name
         msg = String()
         msg.data = turtle_name
