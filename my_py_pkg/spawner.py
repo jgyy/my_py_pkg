@@ -21,7 +21,8 @@ class TurtleSpawner(Node):
             return
         request = Spawn.Request()
         request.x = random.uniform(1.0, 10.0)
-        request.y = random.uniform(0, 2 * math.pi)
+        request.y = random.uniform(1.0, 10.0)
+        request.theta = random.uniform(0, 2 * math.pi)
         request.name = f"turtle{self.turtle_counter}"
         future = self.spawn_client.call_async(request)
         future.add_done_callback(self.spawn_callback)

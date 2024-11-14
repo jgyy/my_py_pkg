@@ -37,10 +37,8 @@ class TurtleController(Node):
     def move_to_target(self):
         if not self.current_pose or not self.target_turtle:
             return
-        target_x = 5.0
-        target_y = 5.0
-        dx = target_x - self.current_pose.x
-        dy = target_y - self.current_pose.y
+        dx = self.target_pose.x - self.current_pose.x
+        dy = self.target_pose.y - self.current_pose.y
         distance = math.sqrt(dx * dx + dy * dy)
         angle = math.atan2(dy, dx)
         vel_msg = Twist()
