@@ -12,6 +12,8 @@ class CatchThemAll(Node):
         self.target_publisher = self.create_publisher(String, "catch_turtle", 10)
         self.hunter_pose_sub = self.create_subscription(
             Pose, 'turtle1/pose', self.hunter_pose_callback, 10)
+        self.new_turtle_sub = self.create_subscription(
+            String, "new_turtle", self.new_turtle_callback, 10)
         self.turtle_poses = {}
         self.current_target = None
         self.caught_turtles = set()
@@ -38,11 +40,11 @@ class CatchThemAll(Node):
         if not self.current_target or "turtle1" not in self.turtle_poses:
             return
         hunter_pose = self.turtle_poses["turtle1"]
-        target_pose = self.turtle_pose.get(self.current_target)
+        target_pose = self.turtle_poses.get(self.current_target)
         if not target_pose:
             return
         dx = hunter_pose.x - target_pose.x
-        dy = hunter_pose.x - target_pose.y
+        dy = hunter_pose.y - target_pose.y
         distance = math.sqrt(dx * dx + dy * dy)
         if distance < self.catch_distance:
             self.get_logger().info(f"Caught {self.current_target}!")
@@ -55,7 +57,7 @@ class CatchThemAll(Node):
             self.get_logger().info("All turtles caught!")
             self.current_target = None
             return
-        hunter_pose = self.turtle_pose["turtle1"]
+        hunter_pose = self.turtle_poses["turtle1"]
         closest_turtle = None
         min_distance = float("inf")
         for turtle in available_turtles:
@@ -68,11 +70,11 @@ class CatchThemAll(Node):
                 closest_turtle = turtle
         self.set_new_target(closest_turtle)
 
-    def set_new_target(self, closest_turtle):
+    def set_new_target(self, turtle_name):
         self.current_target = turtle_name
         msg = String()
         msg.data = turtle_name
-        self.target_publisher.publisher(msg)
+        self.target_publisher.publishe(msg)
         self.get_logger().info(f"New target: {turtle_name}")
 
 
