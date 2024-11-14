@@ -16,7 +16,7 @@ class CatchThemAll(Node):
             Pose, 'turtle1/pose', self.hunter_pose_callback, 10)
         self.new_turtle_sub = self.create_subscription(
             String, "new_turtle", self.new_turtle_callback, 10)
-        self.kill_client = self.create_client(Empty, "kill")
+        self.kill_client = self.create_client(Kill, "kill")
         while not self.kill_client.wait_for_service(1.0):
             self.get_logger().info("Waiting for Kill service...")
         self.turtle_poses = {}
@@ -77,8 +77,6 @@ class CatchThemAll(Node):
             self.caught_turtles.add(self.current_target)
             if self.current_target in self.turtle_poses:
                 del self.turtle_poses[self.current_target]
-            if self.current_target in self.kill_services:
-                del self.kill_services[self.current_target]
             self.find_next_target()
 
     def find_next_target(self):
