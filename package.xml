@@ -8,7 +8,10 @@
   <license>Apache License 2.0</license>
 
   <depend>rclpy</depend>
+  <depend>turtlesim</depend>
+  <depend>geometry_msgs</depend>
   <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
   <depend>example_interfaces</depend>
   <depend>my_robot_interfaces</depend>
 
