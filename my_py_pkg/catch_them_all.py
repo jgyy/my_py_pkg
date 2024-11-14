@@ -20,7 +20,7 @@ class CatchThemAll(Node):
         self.get_logger().info("Catch Them All node has started")
 
     def hunter_pose_callback(self, msg):
-        self.turtle_pose["turtle1"] = msg
+        self.turtle_poses["turtle1"] = msg
 
     def add_turtle(self, turtle_name):
         if turtle_name in self.turtle_poses:
