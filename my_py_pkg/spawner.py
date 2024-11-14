@@ -10,6 +10,7 @@ class TurtleSpawner(Node):
     def __init__(self):
         super().__init__("turtle_spawner")
         self.spawn_client = self.create_client(Spawn, "spawn")
+        self.new_turtle_pub = self.create_publisher(String, "new_turtle", 10)
         self.spawn_frequency = self.declare_parameter("spawn_frequency", 5.0).value
         self.create_timer(self.spawn_frequency, self.spawn_turtle)
         self.turtle_counter = 2
@@ -31,6 +32,9 @@ class TurtleSpawner(Node):
         try:
             response = future.result()
             self.get_logger().info(f"Spawned turtle: {response.name}")
+            msg = String()
+            msg.data = response.name
+            self.new_turtle_pub.publish(msg)
             self.turtle_counter += 1
         except Exception as e:
             self.get_logger().error(f"Service call failed: {str(e)}")

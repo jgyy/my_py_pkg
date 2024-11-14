@@ -79,7 +79,7 @@ class CatchThemAll(Node):
         self.current_target = turtle_name
         msg = String()
         msg.data = turtle_name
-        self.target_publisher.publishe(msg)
+        self.target_publisher.publish(msg)
         self.get_logger().info(f"New target: {turtle_name}")
 
 
