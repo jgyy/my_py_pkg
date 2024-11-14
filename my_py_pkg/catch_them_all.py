@@ -2,6 +2,7 @@
 import rclpy
 from rclpy.node import Node
 from turtlesim.msg import Pose
+from turtlesim.srv import Kill
 from std_msgs.msg import String
 from std_srvs.srv import Empty
 import math
@@ -15,7 +16,9 @@ class CatchThemAll(Node):
             Pose, 'turtle1/pose', self.hunter_pose_callback, 10)
         self.new_turtle_sub = self.create_subscription(
             String, "new_turtle", self.new_turtle_callback, 10)
-        self.kill_services = {}
+        self.kill_client = self.create_client(Empty, "kill")
+        while not self.kill_client.wait_for_service(1.0):
+            self.get_logger().info("Waiting for Kill service...")
         self.turtle_poses = {}
         self.current_target = None
         self.caught_turtles = set()
@@ -46,14 +49,13 @@ class CatchThemAll(Node):
         self.turtle_poses[turtle_name] = msg
 
     def kill_turtle(self, turtle_name):
-        if turtle_name in self.kill_services:
-            try:
-                future = self.kill_services[turtle_name].call_async(Empty.Request())
-                return future
-            except Exception as e:
-                self.get_logger().error(
-                    f"Failed to kill turtle {turtle_name}: {str(e)}")
-        return None
+        kill_client = self.create_client(Kill, "kill")
+        while not kill_client.wait_for_service(1.0):
+            self.get_logger().info("Waiting for Kill service...")
+        request = Kill.Request()
+        request.name = turtle_name
+        future = kill_client.call_async(request)
+        return future
 
     def check_catches(self):
         if not self.current_target or "turtle1" not in self.turtle_poses:
