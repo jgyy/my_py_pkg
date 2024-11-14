@@ -75,7 +75,7 @@ class CatchThemAll(Node):
             if self.current_target in self.turtle_poses:
                 del self.turtle_poses[self.current_target]
             if self.current_target in self.kill_services:
-                def self.kill_services[self.current_target]
+                del self.kill_services[self.current_target]
             self.find_next_target()
 
     def find_next_target(self):
