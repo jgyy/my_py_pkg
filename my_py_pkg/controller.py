@@ -21,18 +21,29 @@ class TurtleController(Node):
         self.set_pen_client = self.create_client(SetPen, "turtle1/set_pen")
         self.current_pose = None
         self.target_turtle = None
+        self.target_pose = None
+        self.target_pose subscription = None
         self.catch_distance_threshold = self.declare_parameter(
             "catch_distance_threshold", 0.5).value
         self.get_logger().info("Turtle Controller node has started")
 
     def pose_callback(self, msg):
         self.current_pose = msg
-        if self.target_turtle:
+        if self.target_turtle and self.target_pose:
             self.move_to_target()
 
     def target_callback(self, msg):
         self.target_turtle = msg.data
         self.get_logger().info(f"New target: {self.target_turtle}")
+        if self.target_pose_subscription:
+            self.destroy_subscription(self.target_pose_subscription)
+        self.target_pose_subscription = self.create_subscription(
+            Pose, f"{self.target_turtle}/pose", self.target_pose_callback, 10)
+
+    def target_pose_callback(self, msg):
+        self.target_pose = msg
+        if self.current_pose:
+            self.move_to_target()
 
     def move_to_target(self):
         if not self.current_pose or not self.target_turtle:
