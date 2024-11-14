@@ -39,8 +39,6 @@ class CatchThemAll(Node):
             return
         self.create_subscription(Pose, f"{turtle_name}/pose",
             lambda msg: self.turtle_pose_callback(turtle_name, msg), 10)
-        kill_service_name = f"kill_{turtle_name}"
-        self.kill_services[turtle_name] = self.create_client(Empty, kill_service_name)
         self.get_logger().info(f"Now tracking {turtle_name}")
         if not self.current_target:
             self.set_new_target(turtle_name)
