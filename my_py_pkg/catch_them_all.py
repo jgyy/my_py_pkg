@@ -70,7 +70,7 @@ class CatchThemAll(Node):
             future = self.kill_turtle(self.current_target)
             if future:
                 future.add_done_callback(
-                    lambda _: self.get_logger.info(
+                    lambda _: self.get_logger().info(
                         f"Successfully removed {self.current_target}"))
             self.caught_turtles.add(self.current_target)
             if self.current_target in self.turtle_poses:
