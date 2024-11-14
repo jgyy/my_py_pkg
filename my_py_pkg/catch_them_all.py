@@ -24,6 +24,11 @@ class CatchThemAll(Node):
     def hunter_pose_callback(self, msg):
         self.turtle_poses["turtle1"] = msg
 
+    def new_turtle_callback(self, msg):
+        turtle_name = msg.data
+        if turtle_name not in self.turtle_poses:
+            self.add_turtle(turtle_name)
+
     def add_turtle(self, turtle_name):
         if turtle_name in self.turtle_poses:
             return
