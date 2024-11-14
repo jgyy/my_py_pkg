@@ -22,7 +22,7 @@ class TurtleController(Node):
         self.current_pose = None
         self.target_turtle = None
         self.target_pose = None
-        self.target_pose subscription = None
+        self.target_pose_subscription = None
         self.catch_distance_threshold = self.declare_parameter(
             "catch_distance_threshold", 0.5).value
         self.get_logger().info("Turtle Controller node has started")
